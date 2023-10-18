@@ -11,4 +11,12 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>pl.polsl.lab1.votesystem.VoteSystem</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>

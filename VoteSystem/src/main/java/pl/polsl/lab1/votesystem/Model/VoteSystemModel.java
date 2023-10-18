@@ -13,8 +13,7 @@ package pl.polsl.lab1.votesystem.Model;
 public class VoteSystemModel {
     private String name;
     private int voteCount;
-    
-       public String getName() {
+    public String getName() {
       return name;
    }
    
@@ -30,10 +29,12 @@ public class VoteSystemModel {
       this.voteCount = voteCount;
    }
 
+   public void vote(){this.voteCount++;}
+
     @Override
     public String toString() {
         return "VoteSystemModel{" + "name=" + name + ", voteCount=" + voteCount + '}';
     }
-   
-   
+
+
 }

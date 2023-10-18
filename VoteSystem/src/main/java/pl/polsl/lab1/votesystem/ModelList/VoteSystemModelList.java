@@ -13,16 +13,28 @@ import java.util.List;
  * @author SuperStudent-PL
  */
 public class VoteSystemModelList {
-    private List<VoteSystemModel> CandidatList;
+    private List<VoteSystemModel> CandidateList;
     public VoteSystemModelList() {
-        
-        this.CandidatList = new ArrayList<>();
+
+        this.CandidateList = new ArrayList<>();
     }
     public List<String> getVoteSystemModelList() {
-        return new ArrayList(CandidatList);
+        return new ArrayList(CandidateList);
     }
-    public void addVoteSystemModelList(VoteSystemModel candidat) {
+    public void addVoteSystemModelList(VoteSystemModel candidate) {
 
-        CandidatList.add(candidat);
+        CandidateList.add(candidate);
     }
+    public int size(){
+        return CandidateList.size();
+    }
+
+    public void vote(int i){CandidateList.get(i).vote();}
+
+    public void print(){
+        for(int i = 0; i < CandidateList.size(); i++) {
+            System.out.println(i+1 + ". " + CandidateList.get(i).getName() + " " + CandidateList.get(i).getVoteCount());
+        }
+    }
+
 }

@@ -22,19 +22,15 @@ public class VoteSystemController {
       this.view = view;
    }
 
-   public void setCandidat(VoteSystemModel candidat){
-      model.addVoteSystemModelList(candidat);
+   public void setCandidate(VoteSystemModel candidate){
+      model.addVoteSystemModelList(candidate);
    }
 
-    @Override
-    public String toString() {
-        return "VoteSystemController{" + "model=" + model + '}';
+   public int getSize(){
+       return model.size();
+   }
+   public void vote(int i){model.vote(i);}
+    public void updateView(){
+        view.print(model);
     }
-
-    public VoteSystemModelList getModel() {
-        return model;
-    }
-    
-   
-    
 }
