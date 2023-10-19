@@ -29,8 +29,8 @@ public class VoteSystem {
 
     public static void main(String [] args) throws IOException {
         int num = 0;
-        String  User = "";
-        /*
+        String  user = "";
+
         if(args.length != 4){
             System.out.println("use -u [username] -v [Candidate number] to vote");
             System.out.println("for example 'javac vote -u Steve -v 0' to vote for position number 0 on list");
@@ -40,7 +40,7 @@ public class VoteSystem {
         try {
             for (int i = 0; i < args.length; i++) {
                 if(args[i].equals("-v")) num = Integer.parseInt(args[i+1]);
-                if(args[i].equals("-u")) User = args[i+1];
+                if(args[i].equals("-u")) user = args[i+1];
             }
 
         }catch (Exception e){
@@ -49,16 +49,11 @@ public class VoteSystem {
         }
 
 
-        try {
-            List<String> Users = FileMenager.Reader("src/main/java/pl/polsl/lab1/votesystem/Users.txt");
-            if(Users.contains(User)){
-                System.out.println("You have already voted");
-                return;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-
+        List<List<String>> users = FileMenager.Reader("src/main/java/pl/polsl/lab1/votesystem/Users.txt");
+        if(users.contains(user)){
+            System.out.println("You have already voted");
+            return;
+        }
 
 
         VoteSystemModelList model = retriveFromDatabase();
