@@ -13,6 +13,15 @@ package pl.polsl.lab1.votesystem.Model;
 public class VoteSystemModel {
     private String name;
     private int voteCount;
+
+    public VoteSystemModel(String name, int voteCount) {
+        this.name = name;
+        this.voteCount = voteCount;
+    }
+
+    public VoteSystemModel() {
+    }
+
     public String getName() {
       return name;
    }

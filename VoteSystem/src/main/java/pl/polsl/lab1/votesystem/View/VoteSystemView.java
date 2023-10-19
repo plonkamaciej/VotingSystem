@@ -4,7 +4,7 @@
  */
 package pl.polsl.lab1.votesystem.View;
 
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 import pl.polsl.lab1.votesystem.ModelList.VoteSystemModelList;
 
 /**
@@ -13,7 +13,7 @@ import pl.polsl.lab1.votesystem.ModelList.VoteSystemModelList;
  */
 
 public class VoteSystemView {
-   public void print(@NotNull VoteSystemModelList Candidate){
+   public void print(VoteSystemModelList Candidate){
       System.out.println("Candidate List: ");
       Candidate.print();
       }
