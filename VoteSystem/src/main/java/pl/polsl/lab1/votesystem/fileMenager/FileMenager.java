@@ -1,11 +1,8 @@
 package pl.polsl.lab1.votesystem.fileMenager;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class FileMenager {
     public static List<List<String>> Reader(String file) {
