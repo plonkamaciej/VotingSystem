@@ -1,9 +1,6 @@
 package pl.polsl.lab1.votesystem.fileMenager;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -29,5 +26,20 @@ public class FileMenager {
             System.out.println("Error reading File");
         }
         return myList;
+    }
+
+
+    public static void addToFile(String user,String file) throws IOException {
+        File add = new File(file);
+        FileWriter fileWriter = new FileWriter(add, true);
+        BufferedWriter write = new BufferedWriter(fileWriter);
+        write.newLine();
+        write.write(user);
+        write.flush();
+        write.close();
+    }
+
+    public static void toFile() {
+
     }
 }
