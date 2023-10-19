@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileMenager {
-    public static List<List<String>> Reader(String file) {
+    public static List<List<String>> Reader(File file) {
         List<List<String>> myList = new ArrayList<>();
         try {
             BufferedReader in = new BufferedReader(new FileReader(file));
@@ -26,8 +26,7 @@ public class FileMenager {
     }
 
 
-    public static void addToFile(String user,String file) throws IOException {
-        File add = new File(file);
+    public static void addToFile(String user,File add) throws IOException {
         FileWriter fileWriter = new FileWriter(add, true);
         BufferedWriter write = new BufferedWriter(fileWriter);
         write.newLine();

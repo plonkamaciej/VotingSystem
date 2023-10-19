@@ -21,6 +21,7 @@ public class VoteSystemModelList {
     public List<String> getVoteSystemModelList() {
         return new ArrayList(CandidateList);
     }
+
     public void addVoteSystemModelList(VoteSystemModel candidate) {
 
         CandidateList.add(candidate);
@@ -36,5 +37,4 @@ public class VoteSystemModelList {
             System.out.println(i+1 + ". " + CandidateList.get(i).getName() + " " + CandidateList.get(i).getVoteCount());
         }
     }
-
 }

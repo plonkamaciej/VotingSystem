@@ -10,6 +10,7 @@ import pl.polsl.lab1.votesystem.Model.VoteSystemModel;
 import pl.polsl.lab1.votesystem.Conteroller.VoteSystemController;
 import pl.polsl.lab1.votesystem.fileMenager.FileMenager;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,15 +23,21 @@ import static pl.polsl.lab1.votesystem.fileMenager.FileMenager.Reader;
 
 
 public class VoteSystem {
+    static private final File userFile = new File("C:\\Users\\Maciek\\IdeaProjects\\VotingSystem\\VoteSystem\\src\\main\\java\\pl\\polsl\\lab1\\votesystem\\fileMenager\\Users.txt");
+    static private final File candidateFile = new File("C:\\Users\\Maciek\\IdeaProjects\\VotingSystem\\VoteSystem\\src\\main\\java\\pl\\polsl\\lab1\\votesystem\\fileMenager\\Candidate.txt");
+
+
 
     public static void main(String [] args) throws IOException {
-        int num = 0;
-        String  user = "Kacper";
-        FileMenager.addToFile(user, "/Users/maciejmac/IdeaProjects/VotingSystem/VoteSystem/src/main/java/pl/polsl/lab1/votesystem/fileMenager/Users.txt");
-/*
+        int num = 2;
+        String  user = "Ala3";
+        VoteSystemModelList model = retriveFromDatabase();
+        VoteSystemView view = new VoteSystemView();
+        VoteSystemController controller = new VoteSystemController(model, view);
+
+
         if(args.length != 4){
-            System.out.println("use -u [username] -v [Candidate number] to vote");
-            System.out.println("for example 'javac vote -u Steve -v 0' to vote for position number 0 on list");
+            view.error();
             return;
         }
 
@@ -41,47 +48,56 @@ public class VoteSystem {
             }
 
         }catch (Exception e){
-            System.out.println("use -u [username] -v [Candidate number] to vote");
-            System.out.println("for example 'javac vote -u Steve -v 0' to vote for position number 0 on list");
+            view.error();
         }
 
 
-        List<List<String>> users = FileMenager.Reader("src/main/java/pl/polsl/lab1/votesystem/Users.txt");
-        if(users.contains(user)){
+        List<List<String>> users = FileMenager.Reader(userFile);
+
+        if(findUser(user, users)){
             System.out.println("You have already voted");
             return;
-        }*/
-
-
-        VoteSystemModelList model = retriveFromDatabase();
-        VoteSystemView view = new VoteSystemView();
-        VoteSystemController controller = new VoteSystemController(model, view);
+        }
+        else  FileMenager.addToFile(user, userFile);
+        controller.updateView();
 
         try {
              if (num <= controller.getSize()) {
                     controller.vote(num);
-                    controller.updateView();
+                    controller.updateView(user, num);
 
                 } else {
                     System.out.println("You entered wrong number");
                 }
 
         } catch (Exception e) {
-            System.out.println("use -u [username] -v [Candidate number] to vote");
-            System.out.println("for example 'javac vote -u Steve -v 0' to vote for position number 0 on list");
+            view.error();
         }
     }
 
     private static VoteSystemModelList retriveFromDatabase(){
 
         VoteSystemModelList candidateList = new VoteSystemModelList();
-        List<List<String>> Candidates = Reader("/Users/maciejmac/IdeaProjects/VotingSystem/VoteSystem/src/main/java/pl/polsl/lab1/votesystem/fileMenager/Candidate.txt");
+        List<List<String>> Candidates = Reader(candidateFile);
 
         //System.out.println(Candidates);
         for (List<String>s:Candidates){
             candidateList.addVoteSystemModelList(new VoteSystemModel(s.get(0), Integer.parseInt(s.get(1))));
         }
         return candidateList;
+    }
+
+
+
+    public static boolean findUser(String user, List<List<String>> users){
+    boolean found = false;
+        for (List<String> innerList : users) {
+            if (innerList.contains(user)) {
+                 found =  true;
+                 break;
+            }
+        }
+        return found;
     }
 
 }
