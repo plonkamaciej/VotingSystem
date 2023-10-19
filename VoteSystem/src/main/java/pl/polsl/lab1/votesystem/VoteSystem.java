@@ -79,8 +79,6 @@ public class VoteSystem {
 
         VoteSystemModelList candidateList = new VoteSystemModelList();
         List<List<String>> Candidates = Reader(candidateFile);
-
-        //System.out.println(Candidates);
         for (List<String>s:Candidates){
             candidateList.addVoteSystemModelList(new VoteSystemModel(s.get(0), Integer.parseInt(s.get(1))));
         }
