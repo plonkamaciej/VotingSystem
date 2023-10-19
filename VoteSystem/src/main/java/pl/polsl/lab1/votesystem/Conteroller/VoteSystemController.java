@@ -33,4 +33,7 @@ public class VoteSystemController {
     public void updateView(){
         view.print(model);
     }
+    public void updateView(String user, int num){
+        view.print(model, user, num);
+    }
 }
