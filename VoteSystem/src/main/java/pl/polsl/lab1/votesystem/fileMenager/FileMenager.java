@@ -2,9 +2,19 @@ package pl.polsl.lab1.votesystem.fileMenager;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+
 public class FileMenager {
+
+    /**
+     *
+     * @param file from which we will read data;
+     * @return list of lists of String representing each line of file
+     *
+     */
+
     public static List<List<String>> Reader(File file) {
         List<List<String>> myList = new ArrayList<>();
         try {
@@ -13,9 +23,7 @@ public class FileMenager {
                 String line = in.readLine();
                 String[] parts = line.split(" ");
                 ArrayList<String> lineList = new ArrayList<>();
-                for (String s : parts) {
-                    lineList.add(s);
-                }
+                Collections.addAll(lineList, parts);
                 myList.add(lineList);
             }
         }
@@ -25,6 +33,11 @@ public class FileMenager {
         return myList;
     }
 
+    /**
+     * Handle adding user to end of file
+     * @param user that should be added to file;
+     * @param add - file name parameter;
+     */
 
     public static void addToFile(String user,File add) throws IOException {
         FileWriter fileWriter = new FileWriter(add, true);
@@ -35,7 +48,18 @@ public class FileMenager {
         write.close();
     }
 
-    public static void toFile() {
+    /**
+     * Handle updating list of candidates
+     * @param line that should be added to file;
+     * @param add - file name parameter;
+     */
 
+    public static void ToFile(String line, File add) throws IOException {
+        FileWriter fileWriter = new FileWriter(add);
+        BufferedWriter write = new BufferedWriter(fileWriter);
+        write.write(line);
+        write.flush();
+        write.close();
     }
+
 }

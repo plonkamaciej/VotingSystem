@@ -6,9 +6,10 @@ package pl.polsl.lab1.votesystem.View;
 
 //import org.jetbrains.annotations.NotNull;
 import pl.polsl.lab1.votesystem.ModelList.VoteSystemModelList;
+import java.util.Scanner;
 
 /**
- *
+ * handle all view operation
  * @author SuperStudent-PL
  */
 
@@ -18,9 +19,9 @@ public class VoteSystemView {
       candidate.print();
       }
 
-   public void print(VoteSystemModelList candidate, String user, int num){
+   public void print(VoteSystemModelList candidate, int num){
       System.out.println("Candidate List After your vote: ");
-      System.out.println("You voted for: nr. " + num);
+      System.out.println("You voted for: nr. " + (num));
       candidate.print();
    }
 
@@ -29,5 +30,16 @@ public class VoteSystemView {
       System.out.println("for example 'javac vote -u Steve -v 0' to vote for position number 0 on list");
    }
 
+   public int askToVote(){
+      Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+      System.out.println("Enter vote [1,2,...,n]: ");
+      String vote = myObj.nextLine();  // Read user input
+      return Integer.parseInt(vote);
+   }
+   public String askName(){
+      Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+      System.out.println("Enter your name: ");
+       return myObj.nextLine();
+   }
 
    }

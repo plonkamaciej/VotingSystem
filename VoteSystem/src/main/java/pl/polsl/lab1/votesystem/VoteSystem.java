@@ -23,71 +23,109 @@ import static pl.polsl.lab1.votesystem.fileMenager.FileMenager.Reader;
 
 
 public class VoteSystem {
-    static private final File userFile = new File("C:\\Users\\Maciek\\IdeaProjects\\VotingSystem\\VoteSystem\\src\\main\\java\\pl\\polsl\\lab1\\votesystem\\fileMenager\\Users.txt");
-    static private final File candidateFile = new File("C:\\Users\\Maciek\\IdeaProjects\\VotingSystem\\VoteSystem\\src\\main\\java\\pl\\polsl\\lab1\\votesystem\\fileMenager\\Candidate.txt");
-
-
 
     public static void main(String [] args) throws IOException {
-        int num = 2;
-        String  user = "Ala3";
-        VoteSystemModelList model = retriveFromDatabase();
+
+        int num = 0;
+        String  user = "";
+        VoteSystemModelList model = new VoteSystemModelList();
+        model = retriveFromDatabase(model.getCandidateFile());
         VoteSystemView view = new VoteSystemView();
         VoteSystemController controller = new VoteSystemController(model, view);
 
+        File userFile = controller.getUserFile();
 
-        if(args.length != 4){
-            view.error();
+        List<List<String>> users = FileMenager.Reader(userFile);
+
+        if(args.length == 0){
+            controller.updateView();
+            user = controller.askName();
+            if(verifyUser(user, users, userFile)) return;
+            num = controller.askToVote();
+            controller.vote(num);
+            controller.updateView(num);
+            controller.toFile();
+            return;
+
+        }
+
+        else if(args.length == 2 && args[0].equals("-add")){
+            controller.addCandidate(args[1]);
+            controller.updateView();
+            System.out.println("Added " + args[1] + " to list");
+            controller.toFile();
             return;
         }
 
-        try {
+        else if(args.length != 4){
+            controller.viewError();
+            return;
+        }
+
+        else try {
             for (int i = 0; i < args.length; i++) {
                 if(args[i].equals("-v")) num = Integer.parseInt(args[i+1]);
                 if(args[i].equals("-u")) user = args[i+1];
             }
 
         }catch (Exception e){
-            view.error();
+            controller.viewError();
         }
 
-
-        List<List<String>> users = FileMenager.Reader(userFile);
-
-        if(findUser(user, users)){
-            System.out.println("You have already voted");
-            return;
-        }
-        else  FileMenager.addToFile(user, userFile);
+        verifyUser(user, users, userFile);
         controller.updateView();
 
         try {
              if (num <= controller.getSize()) {
                     controller.vote(num);
-                    controller.updateView(user, num);
+                    controller.updateView(num);
 
                 } else {
                     System.out.println("You entered wrong number");
                 }
 
         } catch (Exception e) {
-            view.error();
+            System.out.println("error while voting");
         }
     }
 
-    private static VoteSystemModelList retriveFromDatabase(){
+    /**
+     * Handle users
+     * if user already voted return true and comment
+     * add user to user file list
+    */
+    public static boolean verifyUser(String user, List<List<String>> users, File userFile) {
+        if(findUser(user, users)){
+            System.out.println("You have already voted");
+            return true;
+        }
+        else {
+            try {
+                FileMenager.addToFile(user, userFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get Candidates names and vote counts.
+     */
+    private static VoteSystemModelList retriveFromDatabase(File candidateFile){
 
         VoteSystemModelList candidateList = new VoteSystemModelList();
         List<List<String>> Candidates = Reader(candidateFile);
-
-        //System.out.println(Candidates);
         for (List<String>s:Candidates){
             candidateList.addVoteSystemModelList(new VoteSystemModel(s.get(0), Integer.parseInt(s.get(1))));
         }
         return candidateList;
     }
 
-
+    /**
+     * Check if given user already voted
+     * search for user in user file.
+     */
 
     public static boolean findUser(String user, List<List<String>> users){
     boolean found = false;

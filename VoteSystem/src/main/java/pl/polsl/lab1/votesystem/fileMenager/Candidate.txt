@@ -1,3 +1,5 @@
-John 10
-Adam 15
-Sara 12
+John 14
+Adam 16
+Sara 14
+Ada 2
+Maciek 2

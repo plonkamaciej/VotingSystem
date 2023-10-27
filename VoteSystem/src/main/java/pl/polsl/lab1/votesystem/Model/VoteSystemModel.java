@@ -6,7 +6,7 @@ package pl.polsl.lab1.votesystem.Model;
 
 
 /**
- *
+ * Model used later for list of model - candiates
  * @author SuperStudent-PL
  */
 
@@ -19,23 +19,13 @@ public class VoteSystemModel {
         this.voteCount = voteCount;
     }
 
-    public VoteSystemModel() {
-    }
-
     public String getName() {
       return name;
    }
-   
-   public void setName(String name) {
-      this.name = name;
-   }
+
    
    public int getVoteCount() {
       return voteCount;
-   }
-   
-   public void setVoteCount(int voteCount) {
-      this.voteCount = voteCount;
    }
 
    public void vote(){this.voteCount++;}

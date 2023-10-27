@@ -4,12 +4,14 @@
  */
 package pl.polsl.lab1.votesystem.Conteroller;
 
-import pl.polsl.lab1.votesystem.Model.VoteSystemModel;
 import pl.polsl.lab1.votesystem.ModelList.VoteSystemModelList;
 import pl.polsl.lab1.votesystem.View.VoteSystemView;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
- *
+ * Controller for model and view
  * @author SuperStudent-PL
  */
 
@@ -22,18 +24,68 @@ public class VoteSystemController {
       this.view = view;
    }
 
-   public void setCandidate(VoteSystemModel candidate){
-      model.addVoteSystemModelList(candidate);
-   }
-
+    /**
+     * get size of the model
+     */
    public int getSize(){
        return model.size();
    }
-   public void vote(int i){model.vote(i);}
+    /**
+     * give vote to Candidate
+     */
+   public void vote(int i){model.vote(i-1);}
+
+    /**
+     * print candidate list
+     */
     public void updateView(){
         view.print(model);
     }
-    public void updateView(String user, int num){
-        view.print(model, user, num);
+
+    /**
+     * print candidate list after voting with comment on who you voted for
+     * @param num number of candidate
+     */
+    public void updateView(int num){
+        view.print(model, num);
+    }
+
+    /**
+     *print string to file
+     */
+    public void toFile() throws IOException {
+       model.printToFile();
+    }
+    /**
+     * print error message
+     */
+    public void  viewError(){
+       view.error();
+    }
+
+    /**
+     * ask user for vote number
+     */
+    public int askToVote(){
+       return view.askToVote();
+    }
+    /**
+     *ask user for name
+     */
+    public String askName(){
+        return view.askName();
+    }
+    /**
+     *get user file
+     */
+    public File getUserFile(){
+       return model.getUserFile();
+    }
+
+    /**
+     * add candidate to candidate model list
+     */
+    public void addCandidate(String name){
+       model.addCandidate(name);
     }
 }
