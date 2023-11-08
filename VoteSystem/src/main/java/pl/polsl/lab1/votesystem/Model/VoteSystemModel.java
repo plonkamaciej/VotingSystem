@@ -19,15 +19,25 @@ public class VoteSystemModel {
         this.voteCount = voteCount;
     }
 
+    /**
+     *
+     * @return name of signle candidate
+     */
     public String getName() {
       return name;
    }
 
-   
+    /**
+     *
+     * @return numebr of votes that candidate already have
+     */
    public int getVoteCount() {
       return voteCount;
    }
 
+    /**
+     * increase vote count of candidate
+     */
    public void vote(){this.voteCount++;}
 
     @Override

@@ -64,6 +64,13 @@ public class VoteSystemController {
     }
 
     /**
+     * print error message when user input wrong number
+     */
+    public void  viewError(int num){
+        view.error(num, model);
+    }
+
+    /**
      * ask user for vote number
      */
     public int askToVote(){
@@ -78,9 +85,7 @@ public class VoteSystemController {
     /**
      *get user file
      */
-    public File getUserFile(){
-       return model.getUserFile();
-    }
+
 
     /**
      * add candidate to candidate model list

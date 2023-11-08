@@ -1,7 +1,3 @@
-Maciek
-Michal
-Kacper
-Ala
-Aleksandra
-
-Tina
+John 13
+Adam 19
+Sara 14

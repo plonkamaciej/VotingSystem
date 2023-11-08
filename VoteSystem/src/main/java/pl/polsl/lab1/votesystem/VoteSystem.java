@@ -4,17 +4,19 @@
 
 package pl.polsl.lab1.votesystem;
 
+import pl.polsl.lab1.votesystem.CustomException.IncorrectFileNameException;
 import pl.polsl.lab1.votesystem.View.VoteSystemView;
 import pl.polsl.lab1.votesystem.ModelList.VoteSystemModelList;
 import pl.polsl.lab1.votesystem.Model.VoteSystemModel;
 import pl.polsl.lab1.votesystem.Conteroller.VoteSystemController;
-import pl.polsl.lab1.votesystem.fileMenager.FileMenager;
+import pl.polsl.lab1.votesystem.fileMenager.FileManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import static pl.polsl.lab1.votesystem.fileMenager.FileMenager.Reader;
+import static pl.polsl.lab1.votesystem.fileMenager.FileManager.Reader;
 
 /**
  *
@@ -24,29 +26,57 @@ import static pl.polsl.lab1.votesystem.fileMenager.FileMenager.Reader;
 
 public class VoteSystem {
 
-    public static void main(String [] args) throws IOException {
+
+    /**
+     *main function
+     * @param args command line arguments
+     * handle all kind of inputs.
+     * if else based menu display diffrend kind of menus or massages based on given arguments
+     * You are allowed to input args in any combination
+     */
+    public static void main(String [] args) throws IOException, IncorrectFileNameException {
+
+
+        File userFile = FileManager.getUserFile();
+        File candidateFile = FileManager.getCandidateFile();
+
+        if(!userFile.exists()){
+            throw new IncorrectFileNameException("Error opening file " + userFile.toString());
+        }
+        if(!candidateFile.exists()){
+            throw new IncorrectFileNameException("Error opening file " + candidateFile.toString());
+        }
+
 
         int num = 0;
         String  user = "";
-        VoteSystemModelList model = new VoteSystemModelList();
-        model = retriveFromDatabase(model.getCandidateFile());
+        VoteSystemModelList model = retrieveFromDatabase(candidateFile);
         VoteSystemView view = new VoteSystemView();
         VoteSystemController controller = new VoteSystemController(model, view);
+        List<List<String>> users = FileManager.Reader(userFile);
+        
 
-        File userFile = controller.getUserFile();
-
-        List<List<String>> users = FileMenager.Reader(userFile);
 
         if(args.length == 0){
-            controller.updateView();
             user = controller.askName();
-            if(verifyUser(user, users, userFile)) return;
-            num = controller.askToVote();
-            controller.vote(num);
-            controller.updateView(num);
-            controller.toFile();
-            return;
-
+            if (!verifyUser(user, users, userFile)) {
+                controller.updateView();
+                while (true) {
+                    num = controller.askToVote();
+                    if (num == 0) {
+                        System.out.println("Invalid Input");continue;};
+                    try {
+                        controller.vote(num);
+                    } catch (Exception e) {
+                        controller.viewError(num);
+                        continue;
+                    }
+                    controller.updateView(num);
+                    controller.toFile();
+                    return;
+                }
+            }
+            else return;
         }
 
         else if(args.length == 2 && args[0].equals("-add")){
@@ -61,31 +91,30 @@ public class VoteSystem {
             controller.viewError();
             return;
         }
-
-        else try {
-            for (int i = 0; i < args.length; i++) {
-                if(args[i].equals("-v")) num = Integer.parseInt(args[i+1]);
-                if(args[i].equals("-u")) user = args[i+1];
-            }
-
-        }catch (Exception e){
-            controller.viewError();
-        }
-
-        verifyUser(user, users, userFile);
-        controller.updateView();
-
-        try {
-             if (num <= controller.getSize()) {
-                    controller.vote(num);
-                    controller.updateView(num);
-
-                } else {
-                    System.out.println("You entered wrong number");
+        /* Handle user args in different combinations */
+        else {
+            try {
+                for (int i = 0; i < args.length; i++) {
+                    if (args[i].equals("-v")) num = Integer.parseInt(args[i + 1]);
+                    if (args[i].equals("-u")) user = args[i + 1];
                 }
 
-        } catch (Exception e) {
-            System.out.println("error while voting");
+            } catch (Exception e) {
+                controller.viewError();
+                return;
+            }
+
+            if(verifyUser(user, users, userFile)) return;
+            controller.updateView();
+                try {
+                        controller.vote(num);
+                        controller.updateView(num);
+                }
+                catch(NumberFormatException e){
+                    controller.viewError(num);
+                    return;
+                };
+
         }
     }
 
@@ -101,7 +130,7 @@ public class VoteSystem {
         }
         else {
             try {
-                FileMenager.addToFile(user, userFile);
+                FileManager.addToFile(user, userFile);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -112,7 +141,7 @@ public class VoteSystem {
     /**
      * Get Candidates names and vote counts.
      */
-    private static VoteSystemModelList retriveFromDatabase(File candidateFile){
+    private static VoteSystemModelList retrieveFromDatabase(File candidateFile){
 
         VoteSystemModelList candidateList = new VoteSystemModelList();
         List<List<String>> Candidates = Reader(candidateFile);
@@ -139,6 +168,4 @@ public class VoteSystem {
     }
 
 }
-
-
 

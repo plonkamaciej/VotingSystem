@@ -6,14 +6,25 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class FileMenager {
+public class FileManager {
 
+    private static final File userFile = new File("./VoteSystem/src/main/java/pl/polsl/lab1/votesystem/fileMenager/Users.txt");
+    private static final File candidateFile = new File("./VoteSystem/src/main/java/pl/polsl/lab1/votesystem/fileMenager/Candidate.txt");
+
+    public static File getUserFile(){
+        return userFile;
+    }
+
+    public static File getCandidateFile(){
+        return candidateFile;
+    }
     /**
      *
      * @param file from which we will read data;
      * @return list of lists of String representing each line of file
      *
      */
+
 
     public static List<List<String>> Reader(File file) {
         List<List<String>> myList = new ArrayList<>();
