@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * @author Maciej-Plonka
+ */
 public class FileManager {
 
     private static final File userFile = new File("./VoteSystem/src/main/java/pl/polsl/lab1/votesystem/fileMenager/Users.txt");

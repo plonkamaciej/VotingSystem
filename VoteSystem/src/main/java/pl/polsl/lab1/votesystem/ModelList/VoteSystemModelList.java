@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author SuperStudent-PL
+ * @author Maciej-Plonka
  */
 public class VoteSystemModelList {
 

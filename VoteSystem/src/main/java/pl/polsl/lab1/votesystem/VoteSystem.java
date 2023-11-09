@@ -19,7 +19,7 @@ import static pl.polsl.lab1.votesystem.fileMenager.FileManager.Reader;
 
 /**
  *
- * @author SuperStudent-PL
+ * @author Maciej-Plonka
  */
 
 

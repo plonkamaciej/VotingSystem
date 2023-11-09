@@ -7,7 +7,7 @@ package pl.polsl.lab1.votesystem.Model;
 
 /**
  * Model used later for list of model - candiates
- * @author SuperStudent-PL
+ * @author Maciej-Plonka
  */
 
 public class VoteSystemModel {

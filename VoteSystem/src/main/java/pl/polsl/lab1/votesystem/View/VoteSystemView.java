@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  * handle all view operation
- * @author SuperStudent-PL
+ * @author Maciej-Plonka
  */
 
 public class VoteSystemView {

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * Controller for model and view
- * @author SuperStudent-PL
+ * @author Maciej-Plonka
  */
 
 public class VoteSystemController {
