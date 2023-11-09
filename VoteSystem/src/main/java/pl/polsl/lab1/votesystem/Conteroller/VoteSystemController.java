@@ -7,7 +7,6 @@ package pl.polsl.lab1.votesystem.Conteroller;
 import pl.polsl.lab1.votesystem.ModelList.VoteSystemModelList;
 import pl.polsl.lab1.votesystem.View.VoteSystemView;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -16,8 +15,8 @@ import java.io.IOException;
  */
 
 public class VoteSystemController {
-   private VoteSystemModelList model;
-   private VoteSystemView view;
+   private final VoteSystemModelList model;
+   private final VoteSystemView view;
 
    public VoteSystemController(VoteSystemModelList model, VoteSystemView view){
       this.model = model;
@@ -82,10 +81,6 @@ public class VoteSystemController {
     public String askName(){
         return view.askName();
     }
-    /**
-     *get user file
-     */
-
 
     /**
      * add candidate to candidate model list

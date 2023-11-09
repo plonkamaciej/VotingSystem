@@ -7,7 +7,6 @@ package pl.polsl.lab1.votesystem.ModelList;
 import pl.polsl.lab1.votesystem.Model.VoteSystemModel;
 import pl.polsl.lab1.votesystem.fileMenager.FileManager;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class VoteSystemModelList {
 
     /**
      * add candidate to list od candidates
-     * @param candidate
+     * @param candidate candidates
      */
     public void addVoteSystemModelList(VoteSystemModel candidate) {
 
@@ -49,7 +48,7 @@ public class VoteSystemModelList {
 
     /**
      * vote for candidate with number i
-     * @param i
+     * @param i user vote
      */
     public void vote(int i){CandidateList.get(i).vote();}
 
@@ -64,12 +63,12 @@ public class VoteSystemModelList {
 
     /**
      * print all candidates to file
-     * @throws IOException
+     * @throws IOException error saving file
      */
     public void printToFile() throws IOException {
         StringBuilder content = new StringBuilder();
         for (VoteSystemModel voteSystemModel : CandidateList)
             content.append(voteSystemModel.getName()).append(" ").append(voteSystemModel.getVoteCount()).append("\n");
-        FileManager.ToFile(content.toString(), FileManager.getUserFile());
+        FileManager.ToFile(content.toString(), FileManager.getCandidateFile());
     }
 }

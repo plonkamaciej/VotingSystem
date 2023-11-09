@@ -12,7 +12,6 @@ import pl.polsl.lab1.votesystem.Conteroller.VoteSystemController;
 import pl.polsl.lab1.votesystem.fileMenager.FileManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -41,10 +40,10 @@ public class VoteSystem {
         File candidateFile = FileManager.getCandidateFile();
 
         if(!userFile.exists()){
-            throw new IncorrectFileNameException("Error opening file " + userFile.toString());
+            throw new IncorrectFileNameException("Error opening file " + userFile);
         }
         if(!candidateFile.exists()){
-            throw new IncorrectFileNameException("Error opening file " + candidateFile.toString());
+            throw new IncorrectFileNameException("Error opening file " + candidateFile);
         }
 
 
@@ -64,7 +63,9 @@ public class VoteSystem {
                 while (true) {
                     num = controller.askToVote();
                     if (num == 0) {
-                        System.out.println("Invalid Input");continue;};
+
+                        continue;
+                    }
                     try {
                         controller.vote(num);
                     } catch (Exception e) {
@@ -76,7 +77,6 @@ public class VoteSystem {
                     return;
                 }
             }
-            else return;
         }
 
         else if(args.length == 2 && args[0].equals("-add")){
@@ -84,19 +84,18 @@ public class VoteSystem {
             controller.updateView();
             System.out.println("Added " + args[1] + " to list");
             controller.toFile();
-            return;
         }
 
         else if(args.length != 4){
             controller.viewError();
-            return;
         }
         /* Handle user args in different combinations */
         else {
             try {
                 for (int i = 0; i < args.length; i++) {
-                    if (args[i].equals("-v")) num = Integer.parseInt(args[i + 1]);
-                    if (args[i].equals("-u")) user = args[i + 1];
+                    if (args[i].equals("-v")){ num = Integer.parseInt(args[i + 1]); i++;}
+                    else if (args[i].equals("-u")) {user = args[i + 1];i++;}
+                    else throw new IOException();
                 }
 
             } catch (Exception e) {
@@ -112,8 +111,7 @@ public class VoteSystem {
                 }
                 catch(NumberFormatException e){
                     controller.viewError(num);
-                    return;
-                };
+                }
 
         }
     }
