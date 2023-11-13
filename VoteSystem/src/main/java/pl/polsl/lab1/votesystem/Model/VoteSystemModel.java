@@ -14,13 +14,17 @@ public class VoteSystemModel {
     private String name;
     private int voteCount;
 
+    /**
+     * Constructor for model when parameters are provided
+     * @param name
+     * @param voteCount
+     */
     public VoteSystemModel(String name, int voteCount) {
         this.name = name;
         this.voteCount = voteCount;
     }
 
     /**
-     *
      * @return name of signle candidate
      */
     public String getName() {
@@ -28,7 +32,6 @@ public class VoteSystemModel {
    }
 
     /**
-     *
      * @return numebr of votes that candidate already have
      */
    public int getVoteCount() {

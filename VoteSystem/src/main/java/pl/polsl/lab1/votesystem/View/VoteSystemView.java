@@ -17,6 +17,7 @@ public class VoteSystemView {
 
    /**
     *print Candidate list
+    * @param candidate list of candidates that wil be print
     */
    public void print(VoteSystemModelList candidate){
       System.out.println("Candidate List: ");

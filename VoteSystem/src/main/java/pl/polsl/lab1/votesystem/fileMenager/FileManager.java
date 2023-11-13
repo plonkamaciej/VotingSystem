@@ -9,14 +9,28 @@ import java.util.List;
  * @author Maciej-Plonka
  */
 public class FileManager {
+    /**
+     * user file
+     */
+    private static final File userFile = new File("./VoteSystem/src/main/java/pl/polsl/lab1/votesystem/fileMenager/Users.txt");
 
-    private static final File userFile = new File("./src/main/java/pl/polsl/lab1/votesystem/fileMenager/Users.txt");
-    private static final File candidateFile = new File("./src/main/java/pl/polsl/lab1/votesystem/fileMenager/Candidate.txt");
+    /**
+     * candidate file
+     */
+    private static final File candidateFile = new File("./VoteSystem/src/main/java/pl/polsl/lab1/votesystem/fileMenager/Candidate.txt");
 
+    /**
+     * Getter of user file
+     * @return user file
+     */
     public static File getUserFile(){
         return userFile;
     }
 
+    /**
+     * Getter of candidates file
+     * @return candidate file
+     */
     public static File getCandidateFile(){
         return candidateFile;
     }
@@ -50,6 +64,7 @@ public class FileManager {
      * Handle adding user to end of file
      * @param user that should be added to file;
      * @param add - file name parameter;
+     * @throws IOException
      */
 
     public static void addToFile(String user,File add) throws IOException {

@@ -20,6 +20,11 @@ public class VoteSystemController {
    private final VoteSystemModelList model;
    private final VoteSystemView view;
 
+    /**
+     * constructor
+     * @param model
+     * @param view
+     */
    public VoteSystemController(VoteSystemModelList model, VoteSystemView view){
       this.model = model;
       this.view = view;
@@ -86,15 +91,24 @@ public class VoteSystemController {
 
     /**
      * add candidate to candidate model list
+     * @param name of candidate
      */
     public void addCandidate(String name){
        model.addCandidate(name);
     }
 
+    /**
+     * delete candidate
+     * @param number of deleted candidate
+     */
     public void delateCandidate(Integer number){
         model.delateCandidate(number-1);
     }
 
+    /**
+     * read user
+     * use: fileManager class
+     */
     public void readUsers(){
         for (List<String> strings : FileManager.Reader(FileManager.getUserFile())) {
             System.out.println(strings);

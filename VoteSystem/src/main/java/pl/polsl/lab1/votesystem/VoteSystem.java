@@ -30,13 +30,15 @@ public class VoteSystem {
      *main function
      * @param args command line arguments
      * handle all kind of inputs.
-     * if else based menu display diffrend kind of menus or massages based on given arguments
+     * if else based menu display diffrent kind of menus or massages based on given arguments
      * You are allowed to input args in any combination
      *  use -add to add cancidate to the voting list
      *  use -show to show candidate list
      *  use -showV to show list of all voters
      *  use -show to show list of all candidates
      *  use -v with -u to vote
+     * @throws IOException
+     * @throws IncorrectFileNameException
      */
     public static void main(String [] args) throws IOException, IncorrectFileNameException {
 

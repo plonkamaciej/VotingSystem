@@ -17,12 +17,22 @@ import java.util.List;
  */
 public class VoteSystemModelList {
 
+    /**
+     * List of candidates
+     */
     private final List<VoteSystemModel> CandidateList;
-
+    /**
+     * constructor when no candidate is specified
+     */
     public VoteSystemModelList() {
 
         this.CandidateList = new ArrayList<>();
     }
+
+    /**
+     * add candidate to the list
+     * @param name of the candidates
+     */
 
     public void addCandidate(String name){
         VoteSystemModel candidate = new VoteSystemModel(name, 0);
@@ -72,6 +82,10 @@ public class VoteSystemModelList {
         FileManager.ToFile(content.toString(), FileManager.getCandidateFile());
     }
 
+    /**
+     * delete candidate with specific index 'i'
+     * @param i index of candidate
+     */
     public void delateCandidate(int i) {
         CandidateList.remove(i);
     }
