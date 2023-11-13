@@ -77,6 +77,7 @@ public class VoteSystem {
                     return;
                 }
             }
+            else controller.updateView();
         }
 
         else if(args.length == 2 && args[0].equals("-add")){
@@ -103,7 +104,10 @@ public class VoteSystem {
                 return;
             }
 
-            if(verifyUser(user, users, userFile)) return;
+            if(verifyUser(user, users, userFile)) {
+                controller.updateView();
+                return;
+            }
             controller.updateView();
                 try {
                         controller.vote(num);

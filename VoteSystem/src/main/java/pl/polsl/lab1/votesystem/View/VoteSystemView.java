@@ -19,7 +19,7 @@ public class VoteSystemView {
     *print Candidate list
     */
    public void print(VoteSystemModelList candidate){
-      System.out.println("Candidate List before your vote: ");
+      System.out.println("Candidate List: ");
       candidate.print();
       }
 
