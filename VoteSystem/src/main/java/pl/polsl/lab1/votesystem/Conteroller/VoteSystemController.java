@@ -6,8 +6,10 @@ package pl.polsl.lab1.votesystem.Conteroller;
 
 import pl.polsl.lab1.votesystem.ModelList.VoteSystemModelList;
 import pl.polsl.lab1.votesystem.View.VoteSystemView;
+import pl.polsl.lab1.votesystem.fileMenager.FileManager;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Controller for model and view
@@ -87,5 +89,16 @@ public class VoteSystemController {
      */
     public void addCandidate(String name){
        model.addCandidate(name);
+    }
+
+    public void delateCandidate(Integer number){
+        model.delateCandidate(number-1);
+    }
+
+    public void readUsers(){
+        for (List<String> strings : FileManager.Reader(FileManager.getUserFile())) {
+            System.out.println(strings);
+        }
+
     }
 }

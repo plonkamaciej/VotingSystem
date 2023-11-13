@@ -71,4 +71,8 @@ public class VoteSystemModelList {
             content.append(voteSystemModel.getName()).append(" ").append(voteSystemModel.getVoteCount()).append("\n");
         FileManager.ToFile(content.toString(), FileManager.getCandidateFile());
     }
+
+    public void delateCandidate(int i) {
+        CandidateList.remove(i);
+    }
 }

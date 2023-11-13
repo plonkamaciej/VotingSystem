@@ -32,6 +32,11 @@ public class VoteSystem {
      * handle all kind of inputs.
      * if else based menu display diffrend kind of menus or massages based on given arguments
      * You are allowed to input args in any combination
+     *  use -add to add cancidate to the voting list
+     *  use -show to show candidate list
+     *  use -showV to show list of all voters
+     *  use -show to show list of all candidates
+     *  use -v with -u to vote
      */
     public static void main(String [] args) throws IOException, IncorrectFileNameException {
 
@@ -87,6 +92,26 @@ public class VoteSystem {
             controller.toFile();
         }
 
+        else if(args.length == 1 && args[0].equals("-show")){
+            controller.updateView();
+        }
+
+        else if(args.length == 1 && args[0].equals("-showV")){
+            controller.readUsers();
+        }
+
+        else if(args.length == 2 && args[0].equals("-del")){
+            try {
+                controller.delateCandidate(Integer.parseInt(args[1]));
+            }catch (Exception E){
+                System.out.println("Error!");
+            }
+            controller.updateView();
+            controller.toFile();
+
+        }
+
+
         else if(args.length != 4){
             controller.viewError();
         }
@@ -112,6 +137,7 @@ public class VoteSystem {
                 try {
                         controller.vote(num);
                         controller.updateView(num);
+                        controller.toFile();
                 }
                 catch(NumberFormatException e){
                     controller.viewError(num);

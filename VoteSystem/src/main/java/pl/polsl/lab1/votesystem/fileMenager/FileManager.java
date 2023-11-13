@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class FileManager {
 
-    private static final File userFile = new File("./VoteSystem/src/main/java/pl/polsl/lab1/votesystem/fileMenager/Users.txt");
-    private static final File candidateFile = new File("./VoteSystem/src/main/java/pl/polsl/lab1/votesystem/fileMenager/Candidate.txt");
+    private static final File userFile = new File("./src/main/java/pl/polsl/lab1/votesystem/fileMenager/Users.txt");
+    private static final File candidateFile = new File("./src/main/java/pl/polsl/lab1/votesystem/fileMenager/Candidate.txt");
 
     public static File getUserFile(){
         return userFile;

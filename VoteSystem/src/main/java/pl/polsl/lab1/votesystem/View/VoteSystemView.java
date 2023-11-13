@@ -37,8 +37,12 @@ public class VoteSystemView {
     * print error message
     */
    public void error() {
-      System.out.println("use -u [username] -v [Candidate number] to vote");
-      System.out.println("for example 'javac vote -u Steve -v 0' to vote for position number 0 on list");
+      System.out.println("     *  use -add to add cancidate to the voting list\n" +
+              "     *  use -show to show candidate list\n" +
+              "     *  use -showV to show list of all voters\n" +
+              "     *  use -show to show list of all candidates\n" +
+              "     *  use -v with -u to vote");
+      System.out.println("*   for example use -u [username] -v [Candidate number] to vote");
    }
 
    /**
