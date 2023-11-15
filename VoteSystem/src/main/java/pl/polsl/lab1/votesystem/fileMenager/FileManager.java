@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * @author Maciej-Plonka
+ * @version 1.7
  */
 public class FileManager {
     /**

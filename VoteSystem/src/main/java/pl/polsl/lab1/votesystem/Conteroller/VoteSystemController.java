@@ -14,11 +14,20 @@ import java.util.List;
 /**
  * Controller for model and view
  * @author Maciej-Plonka
+ * @version 1.11
  */
 
 public class VoteSystemController {
-   private final VoteSystemModelList model;
-   private final VoteSystemView view;
+
+    /**
+     * Model class
+     */
+    private final VoteSystemModelList model;
+
+    /**
+     * view class
+     */
+    private final VoteSystemView view;
 
     /**
      * constructor
@@ -93,7 +102,7 @@ public class VoteSystemController {
      * add candidate to candidate model list
      * @param name of candidate
      */
-    public void addCandidate(String name){
+    public void addCandidate(String name) throws IOException {
        model.addCandidate(name);
     }
 

@@ -5,13 +5,24 @@
 package pl.polsl.lab1.votesystem.Model;
 
 
+import java.io.IOException;
+import java.security.spec.ECField;
+
 /**
  * Model used later for list of model - candiates
  * @author Maciej-Plonka
+ * @version 1.7
  */
 
 public class VoteSystemModel {
-    private String name;
+    /**
+     * candidate name
+     */
+    private final String name;
+
+    /**
+     * sum of all votes
+     */
     private int voteCount;
 
     /**
@@ -20,6 +31,7 @@ public class VoteSystemModel {
      * @param voteCount
      */
     public VoteSystemModel(String name, int voteCount) {
+        if(name == null || name.isBlank()) throw new NullPointerException();
         this.name = name;
         this.voteCount = voteCount;
     }
@@ -47,6 +59,5 @@ public class VoteSystemModel {
     public String toString() {
         return "VoteSystemModel{" + "name=" + name + ", voteCount=" + voteCount + '}';
     }
-
 
 }

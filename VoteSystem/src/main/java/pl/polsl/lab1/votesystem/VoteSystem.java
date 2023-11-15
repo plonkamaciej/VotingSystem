@@ -18,10 +18,9 @@ import java.util.List;
 import static pl.polsl.lab1.votesystem.fileMenager.FileManager.Reader;
 
 /**
- *
  * @author Maciej-Plonka
+ * @version 1.7
  */
-
 
 public class VoteSystem {
 
@@ -32,13 +31,13 @@ public class VoteSystem {
      * handle all kind of inputs.
      * if else based menu display diffrent kind of menus or massages based on given arguments
      * You are allowed to input args in any combination
-     *  use -add to add cancidate to the voting list
+     *  use -add to add candidate to the voting list
      *  use -show to show candidate list
      *  use -showV to show list of all voters
      *  use -show to show list of all candidates
      *  use -v with -u to vote
-     * @throws IOException
-     * @throws IncorrectFileNameException
+     * @throws IOException handle user input
+     * @throws IncorrectFileNameException used when checking file existence
      */
     public static void main(String [] args) throws IOException, IncorrectFileNameException {
 
@@ -171,7 +170,7 @@ public class VoteSystem {
     /**
      * Get Candidates names and vote counts.
      */
-    private static VoteSystemModelList retrieveFromDatabase(File candidateFile){
+    private static VoteSystemModelList retrieveFromDatabase(File candidateFile) {
 
         VoteSystemModelList candidateList = new VoteSystemModelList();
         List<List<String>> Candidates = Reader(candidateFile);

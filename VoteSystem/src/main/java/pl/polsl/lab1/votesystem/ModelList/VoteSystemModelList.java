@@ -14,6 +14,7 @@ import java.util.List;
 /**
  *
  * @author Maciej-Plonka
+ * @version 1.13
  */
 public class VoteSystemModelList {
 
@@ -34,7 +35,7 @@ public class VoteSystemModelList {
      * @param name of the candidates
      */
 
-    public void addCandidate(String name){
+    public void addCandidate(String name) throws IOException {
         VoteSystemModel candidate = new VoteSystemModel(name, 0);
         CandidateList.add(candidate);
     }
