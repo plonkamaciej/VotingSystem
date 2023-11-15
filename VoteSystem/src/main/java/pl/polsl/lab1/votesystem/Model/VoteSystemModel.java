@@ -11,7 +11,14 @@ package pl.polsl.lab1.votesystem.Model;
  */
 
 public class VoteSystemModel {
+    /**
+     * candidate name
+     */
     private String name;
+
+    /**
+     * sum of all votes
+     */
     private int voteCount;
 
     /**

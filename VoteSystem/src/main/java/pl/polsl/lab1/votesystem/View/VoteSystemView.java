@@ -43,7 +43,7 @@ public class VoteSystemView {
               "     *  use -showV to show list of all voters\n" +
               "     *  use -show to show list of all candidates\n" +
               "     *  use -v with -u to vote");
-      System.out.println("*   for example use -u [username] -v [Candidate number] to vote");
+      System.out.println("     *  for example use -u [username] -v [Candidate number] to vote");
    }
 
    /**
