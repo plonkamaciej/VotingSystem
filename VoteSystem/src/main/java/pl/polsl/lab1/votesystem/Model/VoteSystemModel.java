@@ -31,7 +31,7 @@ public class VoteSystemModel {
      * @param voteCount
      */
     public VoteSystemModel(String name, int voteCount) {
-        if(name == null || name.isBlank()) throw new NullPointerException();
+        if(name == null || name.isBlank() || name.isEmpty()) throw new NullPointerException();
         this.name = name;
         this.voteCount = voteCount;
     }

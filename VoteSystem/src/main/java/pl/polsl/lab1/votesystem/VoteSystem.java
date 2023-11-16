@@ -24,11 +24,27 @@ import static pl.polsl.lab1.votesystem.fileMenager.FileManager.Reader;
 
 public class VoteSystem {
 
+    /**
+     * This interface represents a simple command checker.
+     * It provides a method to check whether a specified command
+     * exists in a given array of arguments.
+     */
+
+
+    interface CommandChecker {
+        /**
+         * Checks if the specified command exists in the given array of arguments.
+         *
+         * @param args    The array of arguments to be checked.
+         * @param command The command to be checked.
+         * @return true if the command exists, false otherwise.
+         */
+        boolean checkCommand(String[] args, String command);
+    }
 
     /**
      *main function
      * @param args command line arguments
-     * handle all kind of inputs.
      * if else based menu display diffrent kind of menus or massages based on given arguments
      * You are allowed to input args in any combination
      *  use -add to add candidate to the voting list
@@ -39,8 +55,20 @@ public class VoteSystem {
      * @throws IOException handle user input
      * @throws IncorrectFileNameException used when checking file existence
      */
-    public static void main(String [] args) throws IOException, IncorrectFileNameException {
 
+    
+    public static void main(String [] args) throws IncorrectFileNameException, IOException {
+
+            CommandChecker checkCommand = (args1, command) -> {
+                for (String arg : args1) {
+                    if (arg.equals(command)) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+
+            String[] arguments = {"-add", "-show", "-showV", "-v", "-u"};
 
         File userFile = FileManager.getUserFile();
         File candidateFile = FileManager.getCandidateFile();
@@ -52,16 +80,46 @@ public class VoteSystem {
             throw new IncorrectFileNameException("Error opening file " + candidateFile);
         }
 
-
         int num = 0;
-        String  user = "";
+        String user = "";
         VoteSystemModelList model = retrieveFromDatabase(candidateFile);
         VoteSystemView view = new VoteSystemView();
         VoteSystemController controller = new VoteSystemController(model, view);
         List<List<String>> users = FileManager.Reader(userFile);
-        
 
 
+        boolean found = false;
+
+        for (String arg : args) {
+            if (checkCommand.checkCommand(arguments, arg)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            controller.viewError();
+        }
+        else handleInput(args, user, users, userFile, num, controller);
+    }
+
+
+    /**
+     * Handles input processing for the VoteSystem.
+     *
+     * This method takes various parameters including command-line arguments, user information,
+     * a file representing user data, a numeric value, and a controller for the VoteSystem.
+     * It processes the input and performs necessary actions based on the provided parameters.
+     *
+     * @param args          The command-line arguments passed to the program.
+     * @param user          The current user's identifier.
+     * @param users         A list containing user information.
+     * @param userFile      The file containing all users.
+     * @param num           A numeric value used in the processing.
+     * @param controller    The controller for the VoteSystem.
+     * @throws IOException  If an I/O error occurs while processing the input or reading the user file.
+     */
+
+    public static void handleInput(String [] args, String user, List<List<String>> users, File userFile, int num,  VoteSystemController controller) throws IOException {
         if(args.length == 0){
             user = controller.askName();
             if (!verifyUser(user, users, userFile)) {
@@ -135,14 +193,14 @@ public class VoteSystem {
                 return;
             }
             controller.updateView();
-                try {
-                        controller.vote(num);
-                        controller.updateView(num);
-                        controller.toFile();
-                }
-                catch(NumberFormatException e){
-                    controller.viewError(num);
-                }
+            try {
+                controller.vote(num);
+                controller.updateView(num);
+                controller.toFile();
+            }
+            catch(NumberFormatException e){
+                controller.viewError(num);
+            }
 
         }
     }

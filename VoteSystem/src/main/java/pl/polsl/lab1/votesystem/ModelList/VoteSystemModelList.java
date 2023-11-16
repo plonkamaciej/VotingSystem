@@ -10,6 +10,7 @@ import pl.polsl.lab1.votesystem.fileMenager.FileManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  *
@@ -50,7 +51,6 @@ public class VoteSystemModelList {
     }
 
     /**
-     *
      * @return size of candidate list
      */
     public int size(){
@@ -67,9 +67,7 @@ public class VoteSystemModelList {
      * print all candidates
      */
     public void print(){
-        for(int i = 0; i < CandidateList.size(); i++) {
-            System.out.println(i+1 + ". " + CandidateList.get(i).getName() + " " + CandidateList.get(i).getVoteCount());
-        }
+        IntStream.range(0, CandidateList.size()).mapToObj(i -> i + 1 + ". " + CandidateList.get(i).getName() + " " + CandidateList.get(i).getVoteCount()).forEach(System.out::println);
     }
 
     /**
@@ -89,5 +87,10 @@ public class VoteSystemModelList {
      */
     public void delateCandidate(int i) {
         CandidateList.remove(i);
+    }
+
+
+    public List<VoteSystemModel> getCandidateList() {
+        return  CandidateList;
     }
 }
