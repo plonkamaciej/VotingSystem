@@ -5,12 +5,14 @@
 package pl.polsl.lab1.votesystem;
 
 import pl.polsl.lab1.votesystem.CustomException.IncorrectFileNameException;
+import pl.polsl.lab1.votesystem.View.GUI;
 import pl.polsl.lab1.votesystem.View.VoteSystemView;
 import pl.polsl.lab1.votesystem.ModelList.VoteSystemModelList;
 import pl.polsl.lab1.votesystem.Model.VoteSystemModel;
 import pl.polsl.lab1.votesystem.Conteroller.VoteSystemController;
 import pl.polsl.lab1.votesystem.fileMenager.FileManager;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -58,6 +60,13 @@ public class VoteSystem {
 
     
     public static void main(String [] args) throws IncorrectFileNameException, IOException {
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new GUI();
+            }
+        });
 
             CommandChecker checkCommand = (args1, command) -> {
                 for (String arg : args1) {
