@@ -4,6 +4,7 @@
 
 package pl.polsl.lab1.votesystem;
 
+import com.sun.java.accessibility.util.GUIInitializedListener;
 import pl.polsl.lab1.votesystem.CustomException.IncorrectFileNameException;
 import pl.polsl.lab1.votesystem.View.GUI;
 import pl.polsl.lab1.votesystem.View.VoteSystemView;
@@ -96,13 +97,17 @@ public class VoteSystem {
         VoteSystemController controller = new VoteSystemController(model, view);
         List<List<String>> users = FileManager.Reader(userFile);
 
+        boolean found = true;
 
-        boolean found = false;
+        if (args.length != 0) {
+            found = false;
 
-        for (String arg : args) {
-            if (checkCommand.checkCommand(arguments, arg)) {
-                found = true;
-                break;
+
+            for (String arg : args) {
+                if (checkCommand.checkCommand(arguments, arg)) {
+                    found = true;
+                    break;
+                }
             }
         }
         if (!found) {
@@ -114,7 +119,6 @@ public class VoteSystem {
 
     /**
      * Handles input processing for the VoteSystem.
-     *
      * This method takes various parameters including command-line arguments, user information,
      * a file representing user data, a numeric value, and a controller for the VoteSystem.
      * It processes the input and performs necessary actions based on the provided parameters.
