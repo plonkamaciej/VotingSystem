@@ -1,4 +1,4 @@
 John 24
 Adam 23
 Sara 19
-john 2
+John 1

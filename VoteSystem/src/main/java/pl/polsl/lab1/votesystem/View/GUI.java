@@ -7,12 +7,9 @@ import pl.polsl.lab1.votesystem.fileMenager.FileManager;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -72,7 +69,7 @@ public class GUI {
      */
     private void deleteCandidate(int selectedRow,DefaultTableModel tableModel) {
         if (selectedRow != -1) {
-            String deletedCandidate = tableModel.getValueAt(selectedRow, 0).toString();
+
             tableModel.removeRow(selectedRow);
 
             // Remove the candidate from the model and update the file
@@ -130,73 +127,64 @@ public class GUI {
         }
 
         DefaultTableModel finalTableModel2 = tableModel;
-        voteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = table.getSelectedRow();
-                if (selectedRow != -1) {
-                    String username = usernameField.getText();
-                    if (!username.isEmpty()) {
-                        // Check if the username already exists in the user list
-                        if (isUserAlreadyVoted(username)) {
-                            JOptionPane.showMessageDialog(frame, "User '" + username + "' has already voted.");
-                        } else {
-
-                            int currentVotes = Integer.parseInt(finalTableModel2.getValueAt(selectedRow, 1).toString());
-                            finalTableModel2.setValueAt(currentVotes + 1, selectedRow, 1);
-
-
-                            String votedCandidate = finalTableModel2.getValueAt(selectedRow, 0).toString();
-                            model.vote(selectedRow);
-                            try {
-                                model.printToFile();
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            try {
-                                FileManager.addToFile(username, userFile);
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            List<String> list = Arrays.asList(new String[]{username});
-                            users.add(list);
-                        }
+        voteButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                String username = usernameField.getText();
+                if (!username.isEmpty()) {
+                    // Check if the username already exists in the user list
+                    if (isUserAlreadyVoted(username)) {
+                        JOptionPane.showMessageDialog(frame, "User '" + username + "' has already voted.");
                     } else {
-                        JOptionPane.showMessageDialog(frame, "Please enter a username.");
+
+                        int currentVotes = Integer.parseInt(finalTableModel2.getValueAt(selectedRow, 1).toString());
+                        finalTableModel2.setValueAt(currentVotes + 1, selectedRow, 1);
+
+
+
+                        model.vote(selectedRow);
+                        try {
+                            model.printToFile();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        try {
+                            FileManager.addToFile(username, userFile);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        List<String> list = List.of(username);
+                        users.add(list);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Please select a candidate to vote.");
+                    JOptionPane.showMessageDialog(frame, "Please enter a username.");
                 }
+            } else {
+                JOptionPane.showMessageDialog(frame, "Please select a candidate to vote.");
             }
         });
 
         DefaultTableModel finalTableModel1 = tableModel;
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String text = textField.getText();
-                if (!text.isEmpty()) {
-                    Object[] rowData = {text, "0"};
-                    finalTableModel1.addRow(rowData);
-                    textField.setText("");
-                    try {
-                        model.addCandidate(text);
-                        model.printToFile();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+        addButton.addActionListener(e -> {
+            String text = textField.getText();
+            if (!text.isEmpty()) {
+                Object[] rowData = {text, "0"};
+                finalTableModel1.addRow(rowData);
+                textField.setText("");
+                try {
+                    model.addCandidate(text);
+                    model.printToFile();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });
 
         JButton deleteButton = new JButton("Delete"); // Moved Delete button to the bottom
         DefaultTableModel finalTableModel = tableModel;
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = table.getSelectedRow();
-                deleteCandidate(selectedRow, finalTableModel);
-            }
+        deleteButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            deleteCandidate(selectedRow, finalTableModel);
         });
 
         JPanel bottomPanel = new JPanel();
