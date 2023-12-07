@@ -90,7 +90,7 @@ public class GUI {
     private void show() {
         JFrame frame = new JFrame("Swing App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(850, 600);
+        frame.setSize(1000, 800);
 
         JPanel topPanel = new JPanel(new FlowLayout());
         JTextField textField = new JTextField(20);
